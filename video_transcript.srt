@@ -1,0 +1,2191 @@
+1
+00:00:00,000 --> 00:00:01,979
+this large language model app can answer
+
+2
+00:00:01,979 --> 00:00:04,259
+questions complete tasks summarize text
+
+3
+00:00:04,259 --> 00:00:06,480
+and write and run python code at the
+
+4
+00:00:06,480 --> 00:00:08,880
+real kicker it's free it's not using the
+
+5
+00:00:08,880 --> 00:00:11,760
+open AI API it is completely open source
+
+6
+00:00:11,760 --> 00:00:13,080
+in this video we're going to be speed
+
+7
+00:00:13,080 --> 00:00:14,700
+building the app and stacking a 7
+
+8
+00:00:14,700 --> 00:00:16,740
+billion parameter model a 13 billion
+
+9
+00:00:16,740 --> 00:00:18,359
+parameter model and a bunch more up
+
+10
+00:00:18,359 --> 00:00:20,460
+against open AI to see if they can even
+
+11
+00:00:20,460 --> 00:00:22,380
+get close one of the easiest ways to get
+
+12
+00:00:22,380 --> 00:00:23,880
+access to open source large language
+
+13
+00:00:23,880 --> 00:00:26,220
+models is through GPT for all through it
+
+14
+00:00:26,220 --> 00:00:27,240
+you can actually use a chat like
+
+15
+00:00:27,240 --> 00:00:28,619
+interface whilst running the models
+
+16
+00:00:28,619 --> 00:00:30,359
+locally on your machine the upside to
+
+17
+00:00:30,359 --> 00:00:31,920
+using the guis that'll actually download
+
+18
+00:00:31,920 --> 00:00:33,420
+the model weights to your machine which
+
+19
+00:00:33,420 --> 00:00:35,219
+means that you can then use it inside of
+
+20
+00:00:35,219 --> 00:00:36,899
+lanechain there's GUI based installers
+
+21
+00:00:36,899 --> 00:00:39,120
+available via the GPT for a website I've
+
+22
+00:00:39,120 --> 00:00:40,860
+also included detailed steps on how to
+
+23
+00:00:40,860 --> 00:00:42,239
+run the code if you want to get it up
+
+24
+00:00:42,239 --> 00:00:43,800
+and running yourself I'll get to that a
+
+25
+00:00:43,800 --> 00:00:45,059
+little bit later so first up I
+
+26
+00:00:45,059 --> 00:00:46,739
+downloaded and installed the GPT for all
+
+27
+00:00:46,739 --> 00:00:48,660
+GUI to my Windows machine the first time
+
+28
+00:00:48,660 --> 00:00:50,460
+I did this I wasn't paying attention so
+
+29
+00:00:50,460 --> 00:00:52,079
+I had no idea where the models would be
+
+30
+00:00:52,079 --> 00:00:53,760
+downloaded to pay special attention to
+
+31
+00:00:53,760 --> 00:00:55,199
+the default download folder for the
+
+32
+00:00:55,199 --> 00:00:56,640
+weeks if you Breeze through it like I
+
+33
+00:00:56,640 --> 00:00:58,379
+did you can bring it back up by checking
+
+34
+00:00:58,379 --> 00:00:59,879
+the download part in my case they will
+
+35
+00:00:59,879 --> 00:01:01,920
+say saved here I downloaded the Llama 13
+
+36
+00:01:01,920 --> 00:01:03,660
+billion snoozy model and a couple of
+
+37
+00:01:03,660 --> 00:01:05,220
+others to put them to the ultimate test
+
+38
+00:01:05,220 --> 00:01:06,900
+would these actually stack up against
+
+39
+00:01:06,900 --> 00:01:08,580
+the big guy now that I've got some model
+
+40
+00:01:08,580 --> 00:01:09,960
+weights downloaded I'm going to whip up
+
+41
+00:01:09,960 --> 00:01:11,460
+an app using streamlit this will allow
+
+42
+00:01:11,460 --> 00:01:12,840
+you to interact with the different llm
+
+43
+00:01:12,840 --> 00:01:14,340
+models through a simple user interface
+
+44
+00:01:14,340 --> 00:01:15,600
+we're going to blast through this pretty
+
+45
+00:01:15,600 --> 00:01:16,979
+quickly because it's pretty similar to
+
+46
+00:01:16,979 --> 00:01:18,420
+what we did inside of the Lang chain
+
+47
+00:01:18,420 --> 00:01:20,220
+crash course in the langchang crash
+
+48
+00:01:20,220 --> 00:01:22,380
+course we started out by creating a file
+
+49
+00:01:22,380 --> 00:01:25,560
+called app.pi This is where our llm
+
+50
+00:01:25,560 --> 00:01:27,420
+application is going to lift now the
+
+51
+00:01:27,420 --> 00:01:28,799
+first thing that we need to do is import
+
+52
+00:01:28,799 --> 00:01:31,680
+stream lit as St this is going to give
+
+53
+00:01:31,680 --> 00:01:33,420
+us our app development framework let's
+
+54
+00:01:33,420 --> 00:01:36,840
+add a comment app Dev framework and then
+
+55
+00:01:36,840 --> 00:01:39,240
+what we want to do is have a title so
+
+56
+00:01:39,240 --> 00:01:41,040
+we're going to say title actually we
+
+57
+00:01:41,040 --> 00:01:42,600
+don't need to set it to a variable so St
+
+58
+00:01:42,600 --> 00:01:46,259
+dot title I'm going to plug in a Emoji
+
+59
+00:01:46,259 --> 00:01:48,180
+because we've got to make it look sweet
+
+60
+00:01:48,180 --> 00:01:51,420
+and we're going to title it GPT for
+
+61
+00:01:51,420 --> 00:01:54,060
+y'all y'all which probably Escape that
+
+62
+00:01:54,060 --> 00:01:55,920
+perfect all right cool so this is the
+
+63
+00:01:55,920 --> 00:01:57,840
+title and then what we want to do is
+
+64
+00:01:57,840 --> 00:01:59,460
+let's start up our app just to make sure
+
+65
+00:01:59,460 --> 00:02:01,079
+this is where talking I can't imagine
+
+66
+00:02:01,079 --> 00:02:03,420
+this is broken right now so we can run
+
+67
+00:02:03,420 --> 00:02:06,240
+Streamliner app or streamlit run app.pi
+
+68
+00:02:06,240 --> 00:02:08,580
+this will open it up in a new browser
+
+69
+00:02:08,580 --> 00:02:10,679
+window perfect so we've got GPT for
+
+70
+00:02:10,679 --> 00:02:13,020
+y'all happening right now so that is our
+
+71
+00:02:13,020 --> 00:02:14,280
+title now if we wanted to change that
+
+72
+00:02:14,280 --> 00:02:15,660
+you could change it to whatever you
+
+73
+00:02:15,660 --> 00:02:17,700
+wanted to something a little bit more
+
+74
+00:02:17,700 --> 00:02:19,680
+appropriate for a business application
+
+75
+00:02:19,680 --> 00:02:21,599
+okay so that is our title the next thing
+
+76
+00:02:21,599 --> 00:02:22,920
+that we want to do is include a place
+
+77
+00:02:22,920 --> 00:02:24,300
+that we can actually pass through a
+
+78
+00:02:24,300 --> 00:02:25,140
+prompt so we're going to create a
+
+79
+00:02:25,140 --> 00:02:28,020
+variable called prompt so prompt holder
+
+80
+00:02:28,020 --> 00:02:31,620
+so this is the prompt text box and we
+
+81
+00:02:31,620 --> 00:02:34,200
+are going to set that equal to St dot
+
+82
+00:02:34,200 --> 00:02:35,580
+text input
+
+83
+00:02:35,580 --> 00:02:37,500
+if you had bigger text inputs you might
+
+84
+00:02:37,500 --> 00:02:39,180
+choose to go with text area I found text
+
+85
+00:02:39,180 --> 00:02:41,340
+input works pretty well and we are going
+
+86
+00:02:41,340 --> 00:02:43,140
+to include the label for this so we're
+
+87
+00:02:43,140 --> 00:02:44,819
+going to say plug in let me make sure my
+
+88
+00:02:44,819 --> 00:02:46,260
+head is not covering that now we're good
+
+89
+00:02:46,260 --> 00:02:50,280
+plug in your prompt yeah and if we go
+
+90
+00:02:50,280 --> 00:02:52,620
+and save and we go and refresh our app
+
+91
+00:02:52,620 --> 00:02:54,120
+again take a look so we've now got
+
+92
+00:02:54,120 --> 00:02:55,319
+somewhere that we can type in a prompt
+
+93
+00:02:55,319 --> 00:02:57,000
+right so I could say
+
+94
+00:02:57,000 --> 00:02:59,459
+um hey how's it going and eventually
+
+95
+00:02:59,459 --> 00:03:01,200
+when we hit enter on our keyboard we
+
+96
+00:03:01,200 --> 00:03:02,640
+want to do something right now it's not
+
+97
+00:03:02,640 --> 00:03:04,379
+doing anything because like you can see
+
+98
+00:03:04,379 --> 00:03:05,760
+that I'm hitting enter if I go and
+
+99
+00:03:05,760 --> 00:03:07,560
+change it if I hit enter it's running up
+
+100
+00:03:07,560 --> 00:03:08,879
+there you can see it really briefly
+
+101
+00:03:08,879 --> 00:03:10,800
+right we actually need to do something
+
+102
+00:03:10,800 --> 00:03:13,620
+or activate a trigger once we go and hit
+
+103
+00:03:13,620 --> 00:03:16,319
+enter so relatively easily so if we hit
+
+104
+00:03:16,319 --> 00:03:18,300
+enter do this
+
+105
+00:03:18,300 --> 00:03:21,000
+so we're going to say if prompt and then
+
+106
+00:03:21,000 --> 00:03:23,159
+all we need to do is right now for right
+
+107
+00:03:23,159 --> 00:03:24,360
+now we don't actually want to go and
+
+108
+00:03:24,360 --> 00:03:25,920
+import anything we'll get to that so
+
+109
+00:03:25,920 --> 00:03:27,360
+we're going to write st.write and we're
+
+110
+00:03:27,360 --> 00:03:28,800
+just going to write out our prompt so we
+
+111
+00:03:28,800 --> 00:03:29,940
+can at least see that we're doing
+
+112
+00:03:29,940 --> 00:03:30,959
+something we're getting a little bit of
+
+113
+00:03:30,959 --> 00:03:33,060
+feedback so we're going to say if we hit
+
+114
+00:03:33,060 --> 00:03:34,620
+enter then we're going to do whatever's
+
+115
+00:03:34,620 --> 00:03:36,659
+here right so that is our Baseline app
+
+116
+00:03:36,659 --> 00:03:38,879
+let's just go and test it out so if we
+
+117
+00:03:38,879 --> 00:03:40,680
+go and refresh so you can see it's
+
+118
+00:03:40,680 --> 00:03:42,360
+already printing out the output of our
+
+119
+00:03:42,360 --> 00:03:44,220
+prompt there so if I go and change it to
+
+120
+00:03:44,220 --> 00:03:46,980
+yo yo yo you can see that we are
+
+121
+00:03:46,980 --> 00:03:49,200
+outputting the output there that at
+
+122
+00:03:49,200 --> 00:03:51,659
+least gives us the shell for our GPT for
+
+123
+00:03:51,659 --> 00:03:53,459
+all app so we've got an app that we can
+
+124
+00:03:53,459 --> 00:03:54,659
+interact with but we haven't actually
+
+125
+00:03:54,659 --> 00:03:57,060
+done any llm stuff yet time to bring the
+
+126
+00:03:57,060 --> 00:03:59,040
+Thunder first up importing Lane chain
+
+127
+00:03:59,040 --> 00:04:00,900
+dependencies so we've got the shell up
+
+128
+00:04:00,900 --> 00:04:01,920
+and running but right now we haven't
+
+129
+00:04:01,920 --> 00:04:03,659
+actually done anything with Lang chain
+
+130
+00:04:03,659 --> 00:04:05,700
+this is where that changes so we're
+
+131
+00:04:05,700 --> 00:04:07,319
+going to jump back into our app and what
+
+132
+00:04:07,319 --> 00:04:08,760
+we're now going to do is first up import
+
+133
+00:04:08,760 --> 00:04:11,420
+a couple of dependencies so import
+
+134
+00:04:11,420 --> 00:04:14,280
+dependencies so we're first up going to
+
+135
+00:04:14,280 --> 00:04:16,380
+import the GPT for all class so from
+
+136
+00:04:16,380 --> 00:04:18,239
+langchain.l
+
+137
+00:04:18,239 --> 00:04:21,120
+lens we're going to import a GPT for all
+
+138
+00:04:21,120 --> 00:04:22,380
+so this is going to allow us to actually
+
+139
+00:04:22,380 --> 00:04:25,380
+leverage our GPT for all weights what we
+
+140
+00:04:25,380 --> 00:04:27,300
+also want to do is import The Prompt
+
+141
+00:04:27,300 --> 00:04:30,000
+template so from langchain dot actually
+
+142
+00:04:30,000 --> 00:04:31,680
+we don't need to go to a sub module
+
+143
+00:04:31,680 --> 00:04:34,620
+we're just going to import The Prompt
+
+144
+00:04:34,620 --> 00:04:36,840
+template Port we spell that right from
+
+145
+00:04:36,840 --> 00:04:39,240
+Lane chain there we go prompt template
+
+146
+00:04:39,240 --> 00:04:41,880
+and we're going to import the llm chain
+
+147
+00:04:41,880 --> 00:04:43,740
+so the prompt template is going to be
+
+148
+00:04:43,740 --> 00:04:45,060
+used for prompt formatting the link
+
+149
+00:04:45,060 --> 00:04:46,979
+chain llm chain is going to give us a
+
+150
+00:04:46,979 --> 00:04:49,800
+chain that we can execute perfect the
+
+151
+00:04:49,800 --> 00:04:51,479
+last thing that we want to do is the
+
+152
+00:04:51,479 --> 00:04:53,460
+path to or set up a variable to hold the
+
+153
+00:04:53,460 --> 00:04:55,320
+path to our weight so path to weights
+
+154
+00:04:55,320 --> 00:04:56,820
+we're going to create a variable called
+
+155
+00:04:56,820 --> 00:05:00,060
+path and set that equal to the area that
+
+156
+00:05:00,060 --> 00:05:01,860
+you've actually gone and set up your GPT
+
+157
+00:05:01,860 --> 00:05:04,020
+for or GUI to download way to in my
+
+158
+00:05:04,020 --> 00:05:05,460
+particular case it's inside of users
+
+159
+00:05:05,460 --> 00:05:09,000
+user app data local nomec.ai and GPT for
+
+160
+00:05:09,000 --> 00:05:11,160
+all so if I actually go to that path
+
+161
+00:05:11,160 --> 00:05:13,440
+I'm actually going to grab a specific
+
+162
+00:05:13,440 --> 00:05:15,300
+set of Weights so let me show you that
+
+163
+00:05:15,300 --> 00:05:16,800
+you can see I've actually got a couple
+
+164
+00:05:16,800 --> 00:05:18,360
+downloaded already now if you haven't
+
+165
+00:05:18,360 --> 00:05:19,680
+downloaded any you're probably not going
+
+166
+00:05:19,680 --> 00:05:21,419
+to see any bin files there but you can
+
+167
+00:05:21,419 --> 00:05:22,919
+actually choose which model that you
+
+168
+00:05:22,919 --> 00:05:24,360
+want to use so let's say for example I
+
+169
+00:05:24,360 --> 00:05:26,880
+wanted to use llama 13 billion 13
+
+170
+00:05:26,880 --> 00:05:28,680
+billion snoozy I could actually copy
+
+171
+00:05:28,680 --> 00:05:31,259
+that entire file path or file name and
+
+172
+00:05:31,259 --> 00:05:32,639
+then what we're going to do is we are
+
+173
+00:05:32,639 --> 00:05:34,919
+going to paste that into our path at the
+
+174
+00:05:34,919 --> 00:05:36,660
+end so this is actually going to give us
+
+175
+00:05:36,660 --> 00:05:39,479
+the full file path to our weights now
+
+176
+00:05:39,479 --> 00:05:41,160
+remember that in the documents video we
+
+177
+00:05:41,160 --> 00:05:43,500
+use the open AI llm module the core
+
+178
+00:05:43,500 --> 00:05:45,000
+change here is that we're now going to
+
+179
+00:05:45,000 --> 00:05:47,100
+use the GPT for all class Lane chain
+
+180
+00:05:47,100 --> 00:05:48,840
+supports a range of different llm
+
+181
+00:05:48,840 --> 00:05:49,979
+sources which makes it pretty
+
+182
+00:05:49,979 --> 00:05:51,600
+straightforward to sum them out as
+
+183
+00:05:51,600 --> 00:05:53,160
+needed I tried doing this initially with
+
+184
+00:05:53,160 --> 00:05:54,539
+hugging face Hub but notice that
+
+185
+00:05:54,539 --> 00:05:56,520
+inference was taking quite some time if
+
+186
+00:05:56,520 --> 00:05:58,020
+you'd like to see me do a video with
+
+187
+00:05:58,020 --> 00:05:59,639
+hugging face Hub let me know in the
+
+188
+00:05:59,639 --> 00:06:00,840
+comments below for now we're going to
+
+189
+00:06:00,840 --> 00:06:02,160
+stick with GPT for all though because
+
+190
+00:06:02,160 --> 00:06:03,660
+that's what I promised in this video so
+
+191
+00:06:03,660 --> 00:06:05,039
+the first thing that we need to do is
+
+192
+00:06:05,039 --> 00:06:07,139
+actually create an instance of our llm
+
+193
+00:06:07,139 --> 00:06:09,600
+so instance of llm so we're going to say
+
+194
+00:06:09,600 --> 00:06:12,780
+llm is equal to GP t for all and what we
+
+195
+00:06:12,780 --> 00:06:14,220
+need to do is we need to specify the
+
+196
+00:06:14,220 --> 00:06:15,780
+model and to that we are going to pass
+
+197
+00:06:15,780 --> 00:06:17,520
+through our path and we are also going
+
+198
+00:06:17,520 --> 00:06:19,560
+to set verbose to equal to true that are
+
+199
+00:06:19,560 --> 00:06:21,360
+another bunch of other parameters that
+
+200
+00:06:21,360 --> 00:06:23,880
+you can set this is the absolute minimum
+
+201
+00:06:23,880 --> 00:06:25,259
+that you need to write in order to get
+
+202
+00:06:25,259 --> 00:06:27,600
+GPT for all up and running what we then
+
+203
+00:06:27,600 --> 00:06:29,100
+want to do is create a prompt template
+
+204
+00:06:29,100 --> 00:06:31,740
+and I went through a bit more detail in
+
+205
+00:06:31,740 --> 00:06:33,780
+terms of prompt templates in the crash
+
+206
+00:06:33,780 --> 00:06:35,039
+course as well as the documents videos
+
+207
+00:06:35,039 --> 00:06:36,660
+so for now we're going to say prompt is
+
+208
+00:06:36,660 --> 00:06:39,300
+equal to prompt template and we want our
+
+209
+00:06:39,300 --> 00:06:40,979
+input variable
+
+210
+00:06:40,979 --> 00:06:42,620
+we're just going to set it to question
+
+211
+00:06:42,620 --> 00:06:46,639
+and then our actual template
+
+212
+00:06:46,639 --> 00:06:49,080
+e-l-a-t-e we're going to set that equal
+
+213
+00:06:49,080 --> 00:06:51,600
+to a multi-line string and we're going
+
+214
+00:06:51,600 --> 00:06:54,960
+to say our question is equal to or say
+
+215
+00:06:54,960 --> 00:06:57,180
+colon and then we can include our
+
+216
+00:06:57,180 --> 00:06:59,639
+question there and we'll structure and
+
+217
+00:06:59,639 --> 00:07:03,060
+say answer let me think that or step by
+
+218
+00:07:03,060 --> 00:07:04,919
+step so we could tweak this you could
+
+219
+00:07:04,919 --> 00:07:06,419
+change it from template based on a
+
+220
+00:07:06,419 --> 00:07:07,560
+little bit of prompt engineering you
+
+221
+00:07:07,560 --> 00:07:09,840
+could even say um let's go through this
+
+222
+00:07:09,840 --> 00:07:12,600
+let's think step by step cool that's our
+
+223
+00:07:12,600 --> 00:07:13,860
+template kind of set up so again you
+
+224
+00:07:13,860 --> 00:07:15,060
+could play around with this depending on
+
+225
+00:07:15,060 --> 00:07:16,620
+how you wanted to actually structure
+
+226
+00:07:16,620 --> 00:07:18,539
+your prompts I've kept it reasonably
+
+227
+00:07:18,539 --> 00:07:19,979
+simple we've just gone and said question
+
+228
+00:07:19,979 --> 00:07:21,599
+is equal to the question that we're
+
+229
+00:07:21,599 --> 00:07:23,220
+going to be passing through to our
+
+230
+00:07:23,220 --> 00:07:24,840
+prompt template and then the answer is
+
+231
+00:07:24,840 --> 00:07:26,699
+going to start out by saying let's think
+
+232
+00:07:26,699 --> 00:07:28,380
+step by step let's actually make it
+
+233
+00:07:28,380 --> 00:07:30,240
+let's think step by step then what we
+
+234
+00:07:30,240 --> 00:07:32,220
+can do is we all we really need to do is
+
+235
+00:07:32,220 --> 00:07:34,380
+set up our Lem chain and this is going
+
+236
+00:07:34,380 --> 00:07:36,900
+to bring our llm which is our GPT for
+
+237
+00:07:36,900 --> 00:07:39,180
+all model and our prompt together so
+
+238
+00:07:39,180 --> 00:07:40,440
+let's actually go and do that so we're
+
+239
+00:07:40,440 --> 00:07:42,060
+going to say our chain 9 is going to be
+
+240
+00:07:42,060 --> 00:07:45,900
+equal to our llm chain and our prompt is
+
+241
+00:07:45,900 --> 00:07:47,880
+going to be equal to our prompt template
+
+242
+00:07:47,880 --> 00:07:50,099
+which we just created over here and our
+
+243
+00:07:50,099 --> 00:07:53,520
+llm is going to be equal to our GPT for
+
+244
+00:07:53,520 --> 00:07:55,500
+all llm so we can paste that in there
+
+245
+00:07:55,500 --> 00:07:57,840
+beautiful and that is our llm chain now
+
+246
+00:07:57,840 --> 00:08:00,060
+done the Baseline llm chain was Now set
+
+247
+00:08:00,060 --> 00:08:01,560
+up all we needed to do was pass through
+
+248
+00:08:01,560 --> 00:08:03,479
+the prompt and using the run method
+
+249
+00:08:03,479 --> 00:08:05,580
+stack them up so we actually need to put
+
+250
+00:08:05,580 --> 00:08:07,199
+some of this into action right so we've
+
+251
+00:08:07,199 --> 00:08:08,699
+now gone and defined all the stuff but
+
+252
+00:08:08,699 --> 00:08:09,960
+right now we're not actually doing
+
+253
+00:08:09,960 --> 00:08:11,340
+anything with that prompt we actually
+
+254
+00:08:11,340 --> 00:08:12,960
+need to send it to our chain that we've
+
+255
+00:08:12,960 --> 00:08:14,520
+got over here super simple because we've
+
+256
+00:08:14,520 --> 00:08:15,960
+already set up the structures right all
+
+257
+00:08:15,960 --> 00:08:18,060
+we need to do is update our St dot write
+
+258
+00:08:18,060 --> 00:08:19,620
+area well first up we actually need to
+
+259
+00:08:19,620 --> 00:08:24,240
+pass our prompt us the prompt to the llm
+
+260
+00:08:24,240 --> 00:08:26,039
+chain and the way that we're going to do
+
+261
+00:08:26,039 --> 00:08:28,500
+that is we are going to run chain dot
+
+262
+00:08:28,500 --> 00:08:30,180
+run and we are going to be passing
+
+263
+00:08:30,180 --> 00:08:31,560
+through the prompt that we've got over
+
+264
+00:08:31,560 --> 00:08:34,080
+here to that that is going to return a
+
+265
+00:08:34,080 --> 00:08:35,399
+response so we're going to store that
+
+266
+00:08:35,399 --> 00:08:37,020
+inside of a variable over here so
+
+267
+00:08:37,020 --> 00:08:39,060
+response and we're going to set that
+
+268
+00:08:39,060 --> 00:08:40,680
+equal to whatever we get back from our
+
+269
+00:08:40,680 --> 00:08:42,539
+Channel what we then need to do is just
+
+270
+00:08:42,539 --> 00:08:43,919
+make sure that we write it back to our
+
+271
+00:08:43,919 --> 00:08:45,540
+screen so if I grab that response and
+
+272
+00:08:45,540 --> 00:08:47,100
+pass it through to St dot right here
+
+273
+00:08:47,100 --> 00:08:48,779
+that should effectively give us exactly
+
+274
+00:08:48,779 --> 00:08:50,519
+what we need so we're now let's just
+
+275
+00:08:50,519 --> 00:08:52,260
+quickly walk through the flow so we've
+
+276
+00:08:52,260 --> 00:08:53,820
+got our llm we've got our prompt
+
+277
+00:08:53,820 --> 00:08:55,380
+template both of those are sent through
+
+278
+00:08:55,380 --> 00:08:57,779
+to our llm chain then if our user types
+
+279
+00:08:57,779 --> 00:08:59,399
+in a prompt and hits enter then we
+
+280
+00:08:59,399 --> 00:09:01,080
+trigger anything that happens down here
+
+281
+00:09:01,080 --> 00:09:02,940
+what is going to happen down here is we
+
+282
+00:09:02,940 --> 00:09:04,800
+pass through the prompt to our llm chain
+
+283
+00:09:04,800 --> 00:09:07,260
+which we set up over there and then we
+
+284
+00:09:07,260 --> 00:09:08,700
+are going to write out the response that
+
+285
+00:09:08,700 --> 00:09:10,560
+we get back from our chain to the screen
+
+286
+00:09:10,560 --> 00:09:12,480
+the model weights that we defined in our
+
+287
+00:09:12,480 --> 00:09:14,760
+path variable pointed to the nomic AI
+
+288
+00:09:14,760 --> 00:09:17,279
+snoozy 13 billion parameter model if we
+
+289
+00:09:17,279 --> 00:09:19,800
+prompt our app let's say asking about
+
+290
+00:09:19,800 --> 00:09:21,600
+the fastest car in the world we should
+
+291
+00:09:21,600 --> 00:09:24,300
+get back a response and what do you know
+
+292
+00:09:24,300 --> 00:09:26,160
+it's identified the Bugatti Chiron
+
+293
+00:09:26,160 --> 00:09:29,040
+Supersport 300 plus is the fastest car
+
+294
+00:09:29,040 --> 00:09:30,899
+in the world just a tad faster than my
+
+295
+00:09:30,899 --> 00:09:33,300
+20 year old RAV4 now rather than just
+
+296
+00:09:33,300 --> 00:09:34,920
+looking at one model in isolation though
+
+297
+00:09:34,920 --> 00:09:36,779
+I wanted to see how some of these open
+
+298
+00:09:36,779 --> 00:09:39,600
+source ggml models stack up against each
+
+299
+00:09:39,600 --> 00:09:42,540
+other in open AI a designed six tests to
+
+300
+00:09:42,540 --> 00:09:43,800
+put our models through the first one
+
+301
+00:09:43,800 --> 00:09:46,140
+basic chat q a side note I'll share the
+
+302
+00:09:46,140 --> 00:09:47,519
+code for the comparison app a little
+
+303
+00:09:47,519 --> 00:09:49,560
+later let's establish a baseline with
+
+304
+00:09:49,560 --> 00:09:51,180
+open AI if we ask about the difference
+
+305
+00:09:51,180 --> 00:09:53,880
+between nuclear fusion and fission shout
+
+306
+00:09:53,880 --> 00:09:55,920
+out to James Spriggs for the info we get
+
+307
+00:09:55,920 --> 00:09:58,200
+a pretty coherent response open ai's
+
+308
+00:09:58,200 --> 00:10:00,720
+text DaVinci 003 calls out Fusion is
+
+309
+00:10:00,720 --> 00:10:03,240
+combining two or more Atomic nuclei and
+
+310
+00:10:03,240 --> 00:10:05,459
+fission as splitting any nuclear
+
+311
+00:10:05,459 --> 00:10:06,839
+scientists out there let me know whether
+
+312
+00:10:06,839 --> 00:10:08,760
+or not this actually checks out now what
+
+313
+00:10:08,760 --> 00:10:10,620
+if we ask Mosaic ml's 7 billion
+
+314
+00:10:10,620 --> 00:10:12,899
+parameter commercially licensable MPT
+
+315
+00:10:12,899 --> 00:10:15,660
+instruct model to be perfectly honest it
+
+316
+00:10:15,660 --> 00:10:17,760
+doesn't look too bad still calls out the
+
+317
+00:10:17,760 --> 00:10:19,200
+main idea around splitting and fusing
+
+318
+00:10:19,200 --> 00:10:21,660
+albeit with a focus on astrophysics the
+
+319
+00:10:21,660 --> 00:10:23,220
+thing is though this was an absolute
+
+320
+00:10:23,220 --> 00:10:25,440
+pain in the ah buttocks to get up and
+
+321
+00:10:25,440 --> 00:10:27,240
+running you see when I use the bass
+
+322
+00:10:27,240 --> 00:10:28,740
+prompt template that I wrote I got
+
+323
+00:10:28,740 --> 00:10:30,420
+responses that were about as good as me
+
+324
+00:10:30,420 --> 00:10:32,339
+giving a speech after a multi-pint pub
+
+325
+00:10:32,339 --> 00:10:34,260
+session gibberish after banging my head
+
+326
+00:10:34,260 --> 00:10:35,580
+against my desk for two and a half hours
+
+327
+00:10:35,580 --> 00:10:37,680
+I went for a run and figured maybe I
+
+328
+00:10:37,680 --> 00:10:39,600
+could reverse engineer how the GPT for
+
+329
+00:10:39,600 --> 00:10:41,640
+all GUI app work looking at the
+
+330
+00:10:41,640 --> 00:10:43,680
+underlying GPT for all Library I noticed
+
+331
+00:10:43,680 --> 00:10:45,720
+that the chat completion method used a
+
+332
+00:10:45,720 --> 00:10:47,760
+prompt template which clearly delineated
+
+333
+00:10:47,760 --> 00:10:50,339
+instructions prompts and responses so I
+
+334
+00:10:50,339 --> 00:10:52,019
+updated the prompt template to do the
+
+335
+00:10:52,019 --> 00:10:54,240
+same and well I'll show mpt's new
+
+336
+00:10:54,240 --> 00:10:56,220
+sunflower poem in a sec asking the same
+
+337
+00:10:56,220 --> 00:10:58,200
+question to the nomic AI trained 13
+
+338
+00:10:58,200 --> 00:10:59,940
+billion parameter non-commercially
+
+339
+00:10:59,940 --> 00:11:01,920
+licensed llama inspired model called
+
+340
+00:11:01,920 --> 00:11:03,720
+snoozy oh my God that's quite a mouthful
+
+341
+00:11:03,720 --> 00:11:06,360
+we got great responses as well short
+
+342
+00:11:06,360 --> 00:11:08,040
+simple and to the point and very similar
+
+343
+00:11:08,040 --> 00:11:10,019
+to what text DaVinci 003 was generated
+
+344
+00:11:10,019 --> 00:11:11,339
+what if we wanted to write an email
+
+345
+00:11:11,339 --> 00:11:13,079
+telling our customers about a sale
+
+346
+00:11:13,079 --> 00:11:15,420
+though open ai's text DaVinci Breeze
+
+347
+00:11:15,420 --> 00:11:17,279
+store pretty quickly even mentioning a
+
+348
+00:11:17,279 --> 00:11:19,860
+25 discount MPT did pretty well here as
+
+349
+00:11:19,860 --> 00:11:21,300
+well creating a practical and wild
+
+350
+00:11:21,300 --> 00:11:22,800
+structured template with placeholders
+
+351
+00:11:22,800 --> 00:11:24,420
+for the customer's name your name and
+
+352
+00:11:24,420 --> 00:11:25,920
+company name there was a weird set of
+
+353
+00:11:25,920 --> 00:11:27,240
+brackets and a dollar sign that it
+
+354
+00:11:27,240 --> 00:11:29,040
+generated at the start of every response
+
+355
+00:11:29,040 --> 00:11:30,779
+so if you use this model in isolation
+
+356
+00:11:30,779 --> 00:11:32,279
+this would be pretty easy to strip out
+
+357
+00:11:32,279 --> 00:11:34,440
+some string slicing snoozy did even
+
+358
+00:11:34,440 --> 00:11:36,240
+better at this and even offered up a
+
+359
+00:11:36,240 --> 00:11:37,680
+discount code to our customers and
+
+360
+00:11:37,680 --> 00:11:39,540
+speaking of discounts you can get 50 off
+
+361
+00:11:39,540 --> 00:11:40,740
+my full stack machine learning course
+
+362
+00:11:40,740 --> 00:11:42,540
+the courses from Nick for the next week
+
+363
+00:11:42,540 --> 00:11:43,620
+in it you'll learn how to build
+
+364
+00:11:43,620 --> 00:11:45,060
+production grade machine learning models
+
+365
+00:11:45,060 --> 00:11:46,860
+from the ground up and I'm about to add
+
+366
+00:11:46,860 --> 00:11:48,420
+a lane chain project to the course next
+
+367
+00:11:48,420 --> 00:11:49,920
+week grab the course now and you'll get
+
+368
+00:11:49,920 --> 00:11:51,779
+access to the videos as I release them
+
+369
+00:11:51,779 --> 00:11:53,100
+if you're already a student you'll get
+
+370
+00:11:53,100 --> 00:11:54,600
+immediate access and if you buy it and
+
+371
+00:11:54,600 --> 00:11:56,399
+you don't like it don't stress just ping
+
+372
+00:11:56,399 --> 00:11:58,440
+an email to Nick courses from nick.com
+
+373
+00:11:58,440 --> 00:12:00,120
+within 30 days and I'll give you a
+
+374
+00:12:00,120 --> 00:12:01,800
+complete refund no questions asked as
+
+375
+00:12:01,800 --> 00:12:02,820
+soon as you send that through and if
+
+376
+00:12:02,820 --> 00:12:03,959
+you've got any questions shoot me an
+
+377
+00:12:03,959 --> 00:12:05,700
+email at that same location and I'll get
+
+378
+00:12:05,700 --> 00:12:07,140
+back to you now how about a poll text
+
+379
+00:12:07,140 --> 00:12:08,940
+DaVinci is a modern day Shakespeare so
+
+380
+00:12:08,940 --> 00:12:10,140
+asking it to write a poem about
+
+381
+00:12:10,140 --> 00:12:12,120
+sunflowers was a sure thing it goes into
+
+382
+00:12:12,120 --> 00:12:14,220
+a literary exposition of those towering
+
+383
+00:12:14,220 --> 00:12:16,500
+golden helianthus MPT however begun
+
+384
+00:12:16,500 --> 00:12:18,660
+hallucinating and mistook sunflowers for
+
+385
+00:12:18,660 --> 00:12:20,700
+sunnies maybe there's a metaphor
+
+386
+00:12:20,700 --> 00:12:22,019
+somewhere there I'm not so sure about
+
+387
+00:12:22,019 --> 00:12:23,640
+those results but it is an interesting
+
+388
+00:12:23,640 --> 00:12:25,380
+read you let me know snoozy comes
+
+389
+00:12:25,380 --> 00:12:26,519
+through with the goods though even
+
+390
+00:12:26,519 --> 00:12:28,500
+rhyming throughout and boom we now have
+
+391
+00:12:28,500 --> 00:12:30,779
+an llm app using open source models
+
+392
+00:12:30,779 --> 00:12:32,700
+we're going to call it no pin AI
+
+393
+00:12:32,700 --> 00:12:34,500
+t-shirts coming soon interestingly when
+
+394
+00:12:34,500 --> 00:12:35,880
+you download the models through the GPT
+
+395
+00:12:35,880 --> 00:12:37,440
+for all GUI there's information about
+
+396
+00:12:37,440 --> 00:12:38,820
+whether the models are commercially
+
+397
+00:12:38,820 --> 00:12:40,560
+licensable which guides you as to
+
+398
+00:12:40,560 --> 00:12:42,120
+whether or not you can bake these into
+
+399
+00:12:42,120 --> 00:12:43,740
+your startup or business app I wish I
+
+400
+00:12:43,740 --> 00:12:45,480
+could stop while I'm ahead but I can't
+
+401
+00:12:45,480 --> 00:12:46,680
+so we're going to take this further I
+
+402
+00:12:46,680 --> 00:12:48,120
+originally planned on building a trading
+
+403
+00:12:48,120 --> 00:12:49,620
+integration with an algo trading
+
+404
+00:12:49,620 --> 00:12:51,540
+platform but travel has been kicking my
+
+405
+00:12:51,540 --> 00:12:53,160
+butt let me know what other llm ideas
+
+406
+00:12:53,160 --> 00:12:54,600
+you've got so I'm going to refactor the
+
+407
+00:12:54,600 --> 00:12:56,459
+app to use the python tool chain with an
+
+408
+00:12:56,459 --> 00:12:58,500
+open AI app all we really have to do is
+
+409
+00:12:58,500 --> 00:13:00,360
+swap out the llm chain with a python
+
+410
+00:13:00,360 --> 00:13:01,980
+agent before we do any swapping out what
+
+411
+00:13:01,980 --> 00:13:03,420
+we actually need to do is import a
+
+412
+00:13:03,420 --> 00:13:04,500
+couple of additional things so we're
+
+413
+00:13:04,500 --> 00:13:06,800
+going to go from
+
+414
+00:13:06,800 --> 00:13:09,120
+langchain.agents.agent toolkits we are
+
+415
+00:13:09,120 --> 00:13:12,000
+going to import the create python agent
+
+416
+00:13:12,000 --> 00:13:14,160
+function where is it create python agent
+
+417
+00:13:14,160 --> 00:13:15,660
+perfect and then what we also want to do
+
+418
+00:13:15,660 --> 00:13:17,760
+is we want to import the python tool
+
+419
+00:13:17,760 --> 00:13:20,180
+chain so let's say python tool chain
+
+420
+00:13:20,180 --> 00:13:24,260
+Imports so we're going to go from
+
+421
+00:13:24,260 --> 00:13:27,240
+langchain.tools dot python dot tool
+
+422
+00:13:27,240 --> 00:13:29,339
+we're going to import the python reple
+
+423
+00:13:29,339 --> 00:13:31,260
+tool perfect so that will give us the
+
+424
+00:13:31,260 --> 00:13:32,880
+two main dependencies that we need to
+
+425
+00:13:32,880 --> 00:13:35,519
+actually get our python app now up and
+
+426
+00:13:35,519 --> 00:13:36,720
+running while we're at it we can
+
+427
+00:13:36,720 --> 00:13:38,279
+actually get rid of the prompt template
+
+428
+00:13:38,279 --> 00:13:39,779
+in llm chain because we're not going to
+
+429
+00:13:39,779 --> 00:13:40,680
+use those anymore so I'm just going
+
+430
+00:13:40,680 --> 00:13:42,360
+going to delete those we could also
+
+431
+00:13:42,360 --> 00:13:43,860
+comment them out if we didn't want to
+
+432
+00:13:43,860 --> 00:13:45,899
+delete them completely and we can
+
+433
+00:13:45,899 --> 00:13:47,880
+actually get rid of our llm chain and
+
+434
+00:13:47,880 --> 00:13:49,500
+our prompt template now keep in mind
+
+435
+00:13:49,500 --> 00:13:51,180
+that this is kind of optional you don't
+
+436
+00:13:51,180 --> 00:13:53,160
+need to go down this route but I do like
+
+437
+00:13:53,160 --> 00:13:56,160
+the agent executor type tool chain from
+
+438
+00:13:56,160 --> 00:13:59,519
+linkchain so create a python agent and
+
+439
+00:13:59,519 --> 00:14:02,160
+we're going to say python agent is equal
+
+440
+00:14:02,160 --> 00:14:04,800
+to create python agent all we need to do
+
+441
+00:14:04,800 --> 00:14:07,200
+to that is pass through our llm and we
+
+442
+00:14:07,200 --> 00:14:09,120
+also need to create a tool set and we
+
+443
+00:14:09,120 --> 00:14:11,339
+are going to set that equal to our
+
+444
+00:14:11,339 --> 00:14:13,500
+python reple tool this actually means
+
+445
+00:14:13,500 --> 00:14:15,540
+that you can trigger python not only
+
+446
+00:14:15,540 --> 00:14:17,220
+right get it to write python but
+
+447
+00:14:17,220 --> 00:14:19,260
+actually trigger python via this
+
+448
+00:14:19,260 --> 00:14:21,300
+LinkedIn agent I think it's personally
+
+449
+00:14:21,300 --> 00:14:22,920
+absolutely amazing and we're also going
+
+450
+00:14:22,920 --> 00:14:24,899
+to set verbose equal to true and then
+
+451
+00:14:24,899 --> 00:14:26,700
+all we really need to do is swap out our
+
+452
+00:14:26,700 --> 00:14:28,380
+chain down here with our python agent
+
+453
+00:14:28,380 --> 00:14:30,240
+now we should be able to go and use our
+
+454
+00:14:30,240 --> 00:14:33,060
+python agent as opposed to our basic llm
+
+455
+00:14:33,060 --> 00:14:34,620
+chain before dumping the open source
+
+456
+00:14:34,620 --> 00:14:36,899
+llms I had two more tests dropping a
+
+457
+00:14:36,899 --> 00:14:39,060
+block on Formula One over to open AI got
+
+458
+00:14:39,060 --> 00:14:40,260
+us a pretty neat summary of the
+
+459
+00:14:40,260 --> 00:14:42,540
+Motorsport racing event MPT instructs
+
+460
+00:14:42,540 --> 00:14:43,980
+seemed to maybe have reached its limit
+
+461
+00:14:43,980 --> 00:14:45,240
+here although I'm not completely sure
+
+462
+00:14:45,240 --> 00:14:46,500
+whether or not this was due to an
+
+463
+00:14:46,500 --> 00:14:48,600
+incompatibility with the GPT for all
+
+464
+00:14:48,600 --> 00:14:50,459
+class or something else I'm sure with a
+
+465
+00:14:50,459 --> 00:14:51,720
+little fine tuning it could probably
+
+466
+00:14:51,720 --> 00:14:53,639
+work but I did try with varying hyper
+
+467
+00:14:53,639 --> 00:14:55,260
+parameters adjusting temperature and
+
+468
+00:14:55,260 --> 00:14:57,000
+sampling settings it just seemed to
+
+469
+00:14:57,000 --> 00:14:58,860
+bridge too far it was generating Arabic
+
+470
+00:14:58,860 --> 00:15:00,480
+characters and started hallucinating
+
+471
+00:15:00,480 --> 00:15:02,880
+referring to a death in the sport was
+
+472
+00:15:02,880 --> 00:15:05,880
+this it for open source llms nope snoozy
+
+473
+00:15:05,880 --> 00:15:07,199
+came through with a good generating an
+
+474
+00:15:07,199 --> 00:15:08,880
+abstractive and coherent summary of the
+
+475
+00:15:08,880 --> 00:15:11,040
+Wikipedia extract at the same time I
+
+476
+00:15:11,040 --> 00:15:12,899
+tested out another llama 13 billion
+
+477
+00:15:12,899 --> 00:15:15,360
+parameter derivative vicuna this time
+
+478
+00:15:15,360 --> 00:15:16,800
+trained by some prominent us
+
+479
+00:15:16,800 --> 00:15:18,959
+universities again generating a pretty
+
+480
+00:15:18,959 --> 00:15:20,820
+short and sweet summary it was killing
+
+481
+00:15:20,820 --> 00:15:22,620
+me that MPT wasn't quite working along
+
+482
+00:15:22,620 --> 00:15:24,540
+the way I did try the Basin chat models
+
+483
+00:15:24,540 --> 00:15:26,339
+with the GPT for all class the chat
+
+484
+00:15:26,339 --> 00:15:28,560
+model didn't seem to return results this
+
+485
+00:15:28,560 --> 00:15:30,180
+is probably a work in progress to be
+
+486
+00:15:30,180 --> 00:15:31,680
+honest they seem to have the same issues
+
+487
+00:15:31,680 --> 00:15:33,660
+that instructed going a little bit wild
+
+488
+00:15:33,660 --> 00:15:34,980
+one of the things I've been testing out
+
+489
+00:15:34,980 --> 00:15:36,779
+at work has been few shot prompting so I
+
+490
+00:15:36,779 --> 00:15:38,339
+figured hey let's give it a crack here
+
+491
+00:15:38,339 --> 00:15:39,959
+the test case was to look at a sequence
+
+492
+00:15:39,959 --> 00:15:41,760
+of numbers in a evaluated condition here
+
+493
+00:15:41,760 --> 00:15:44,399
+the prompt outlines the numbers 15 32 5
+
+494
+00:15:44,399 --> 00:15:47,880
+13 82 7 and 1 and notes that the odd
+
+495
+00:15:47,880 --> 00:15:49,680
+numbers in the group add up to an even
+
+496
+00:15:49,680 --> 00:15:52,019
+number ideally we will run our model to
+
+497
+00:15:52,019 --> 00:15:54,060
+respond true or false fifteen plus five
+
+498
+00:15:54,060 --> 00:15:56,100
+plus thirteen plus seven plus one add up
+
+499
+00:15:56,100 --> 00:15:57,779
+to 41 which would render this condition
+
+500
+00:15:57,779 --> 00:16:00,300
+as false and boom Tech DaVinci comes
+
+501
+00:16:00,300 --> 00:16:01,680
+through with the goods snoozy however
+
+502
+00:16:01,680 --> 00:16:03,060
+got caught snoozing here and
+
+503
+00:16:03,060 --> 00:16:04,440
+unfortunately couldn't replicate the
+
+504
+00:16:04,440 --> 00:16:05,459
+results using the same problem
+
+505
+00:16:05,459 --> 00:16:06,959
+admittedly this Chain of Thought
+
+506
+00:16:06,959 --> 00:16:09,120
+reasoning is quite complicated even for
+
+507
+00:16:09,120 --> 00:16:11,220
+most modern llms the kuna however
+
+508
+00:16:11,220 --> 00:16:13,320
+managed to get the samurai which to be
+
+509
+00:16:13,320 --> 00:16:15,540
+honest is kind of amazing unfortunately
+
+510
+00:16:15,540 --> 00:16:17,160
+its Chain of Thought LED it to the wrong
+
+511
+00:16:17,160 --> 00:16:19,440
+conclusion still not a bad effort this
+
+512
+00:16:19,440 --> 00:16:21,300
+brings us to the final tests using the
+
+513
+00:16:21,300 --> 00:16:23,279
+llms inside of a python agent with
+
+514
+00:16:23,279 --> 00:16:25,500
+self-debugging I wanted to see if openai
+
+515
+00:16:25,500 --> 00:16:27,180
+could calculate the 12th number in a
+
+516
+00:16:27,180 --> 00:16:29,279
+standard Fibonacci Sequence now this
+
+517
+00:16:29,279 --> 00:16:31,800
+one's Up For Debate the 12th number in a
+
+518
+00:16:31,800 --> 00:16:34,079
+Fibonacci Sequence will be 89 if you
+
+519
+00:16:34,079 --> 00:16:35,760
+started from zero which from my two
+
+520
+00:16:35,760 --> 00:16:37,259
+minute Googling seems correct but it
+
+521
+00:16:37,259 --> 00:16:40,199
+would be 144 if you started from one
+
+522
+00:16:40,199 --> 00:16:42,240
+with without clarifying text DaVinci
+
+523
+00:16:42,240 --> 00:16:45,480
+comes up with 144 right you let me know
+
+524
+00:16:45,480 --> 00:16:47,279
+the big snooze dog however after 17
+
+525
+00:16:47,279 --> 00:16:49,199
+minutes of setting my CPU on fire came
+
+526
+00:16:49,199 --> 00:16:51,899
+through with 89 I know crazy mind you
+
+527
+00:16:51,899 --> 00:16:53,399
+even though I got the answer right it
+
+528
+00:16:53,399 --> 00:16:55,019
+took so long running on CPU that I
+
+529
+00:16:55,019 --> 00:16:56,339
+managed to make lunch while it was
+
+530
+00:16:56,339 --> 00:16:58,320
+recording this demo snippet I did see
+
+531
+00:16:58,320 --> 00:17:00,480
+there's a way to run GPT for all on GPU
+
+532
+00:17:00,480 --> 00:17:02,339
+so maybe next video all the code to get
+
+533
+00:17:02,339 --> 00:17:03,779
+this up and running is available via my
+
+534
+00:17:03,779 --> 00:17:05,459
+GitHub account in the description below
+
+535
+00:17:05,459 --> 00:17:07,199
+I've included really detailed
+
+536
+00:17:07,199 --> 00:17:09,120
+instructions inside the readme as well
+
+537
+00:17:09,120 --> 00:17:10,980
+as the requirements so txt file so you
+
+538
+00:17:10,980 --> 00:17:13,079
+know exactly what libraries and versions
+
+539
+00:17:13,079 --> 00:17:14,400
+I use I'd love to know if you're
+
+540
+00:17:14,400 --> 00:17:16,559
+building any interesting llm apps if you
+
+541
+00:17:16,559 --> 00:17:17,819
+do manage to build them and create a
+
+542
+00:17:17,819 --> 00:17:19,559
+video make sure to tag me on Twitter and
+
+543
+00:17:19,559 --> 00:17:20,880
+or LinkedIn I'll include my handles
+
+544
+00:17:20,880 --> 00:17:22,260
+there I'd love to see what you're
+
+545
+00:17:22,260 --> 00:17:23,579
+getting up to and if you're Keen to
+
+546
+00:17:23,579 --> 00:17:25,319
+continue Ulan change only check out the
+
+547
+00:17:25,319 --> 00:17:26,699
+lane chain crash course that we did up
+
+548
+00:17:26,699 --> 00:17:28,880
+here
